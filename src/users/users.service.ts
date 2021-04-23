@@ -9,16 +9,19 @@ export class UsersService {
   private users: User[];
   private usersAPI: string = 'http://localhost:3080/api';
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) {
+    this.refresh();
+  }
   
   refresh() {
     this.getUsers().subscribe((response) => this.users = response.data);
   }
 
-  findUser(username: string): User | string {
+  findUser(username: string): User | undefined {
     this.refresh();
     let user = this.users.find(user => user.username === username);
-    return (user ? user : 'User not found\n');
+    //return (user ? user : 'User not found\n');
+    return user;
   }
   
   getUsers(): Observable<AxiosResponse<User[]>> {
