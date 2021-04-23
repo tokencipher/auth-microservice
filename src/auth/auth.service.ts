@@ -7,7 +7,6 @@ import { throws } from 'node:assert';
 
 @Injectable()
 export class AuthService {
-  user: User;
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService
@@ -16,9 +15,9 @@ export class AuthService {
   async validateUser(username: string, pass: string): Promise<any> {
     const user = this.usersService.findUser(username);
 
-    const isMatch = await bcrypt.compare(pass, this.user.password);
-    if (this.user && isMatch) {
-      const { password, ...result } = this.user;
+    const isMatch = await bcrypt.compare(pass, user.password);
+    if (user && isMatch) {
+      const { password, ...result } = user;
       return result;
     }
 
