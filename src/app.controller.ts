@@ -31,7 +31,7 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Post('auth/update')
   update(@Request() req) {
-    //return this.userService.updateUser(req.body);
+    this.usersService.updateUser(req.body.user_id, req.body).subscribe(() => console.log('User update request initiated!'));
   }
 
   @UseGuards(JwtAuthGuard)
