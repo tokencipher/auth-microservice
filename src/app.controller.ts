@@ -1,4 +1,4 @@
-import { Controller, Get, Request, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get, Request, Put, Delete, Post, UseGuards } from '@nestjs/common';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { UsersService } from './users/users.service';
@@ -29,17 +29,18 @@ export class AppController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('auth/update')
+  @Put('auth/update')
   update(@Request() req) {
     this.usersService.updateUser(req.body.user_id, req.body).subscribe(() => console.log('User update request initiated!'));
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('auth/delete')
+  @Delete('auth/delete')
   delete(@Request() req) {
     this.usersService.deleteUser(req.body.user_id).subscribe(() => console.log('Delete user request initiated!'));
   }
-
+ 
+  /*
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
@@ -55,5 +56,6 @@ export class AppController {
   sayHello(): string {
     return this.appService.getHello();
   }
+  */
 
 }
