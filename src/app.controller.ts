@@ -26,18 +26,21 @@ export class AppController {
   create(@Request() req) {
     //return req.body
     this.usersService.createUser(req.body).subscribe(() => console.log('User creation request initiated!'));
+    return `${req.body.username} has successfully been created!`;
   }
 
   @UseGuards(JwtAuthGuard)
   @Put('auth/update')
   update(@Request() req) {
     this.usersService.updateUser(req.body.user_id, req.body).subscribe(() => console.log('User update request initiated!'));
+    return `User with user id ${req.body.user_id} has been successfully updated!`;
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete('auth/delete')
   delete(@Request() req) {
     this.usersService.deleteUser(req.body.user_id).subscribe(() => console.log('Delete user request initiated!'));
+    return `User with user id ${req.body.user_id} has been successfully deleted!`
   }
  
   /*
