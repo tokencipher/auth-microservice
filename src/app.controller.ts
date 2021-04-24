@@ -37,7 +37,7 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Post('auth/delete')
   delete(@Request() req) {
-    //return this.userService.deleteUser(req.user);
+    this.usersService.deleteUser(req.body.user_id).subscribe(() => console.log('Delete user request initiated!'));
   }
 
   @UseGuards(JwtAuthGuard)
