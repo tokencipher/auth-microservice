@@ -17,20 +17,21 @@ export class AppController {
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
   login(@Request() req) {
-    return req.user;
-   //return this.authService.login(req.user);
+    //return req.user;
+    return this.authService.login(req.user);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('auth/create')
   create(@Request() req) {
-    //return this.userService.createUser(req.user);
+    //return req.body
+    this.usersService.createUser(req.body).subscribe(() => console.log('User creation request initiated!'));
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('auth/update')
   update(@Request() req) {
-    //return this.userService.updateUser(req.user);
+    //return this.userService.updateUser(req.body);
   }
 
   @UseGuards(JwtAuthGuard)
