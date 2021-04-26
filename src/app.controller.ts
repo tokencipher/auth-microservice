@@ -1,4 +1,4 @@
-import { Controller, Get, Request, Put, Delete, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get, Request, Param, Put, Delete, Post, UseGuards } from '@nestjs/common';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { UsersService } from './users/users.service';
@@ -30,17 +30,17 @@ export class AppController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Put('auth/update')
-  update(@Request() req) {
-    this.usersService.updateUser(req.body.user_id, req.body).subscribe(() => console.log('User update request initiated!'));
-    return `User with user id ${req.body.user_id} has been successfully updated!`;
+  @Put('auth/update/:id')
+  update(@Request() req, @Param() param) {
+    this.usersService.updateUser(param.id, req.body).subscribe(() => console.log('User update request initiated!'));
+    return `User with user id ${param.id} has been successfully updated!`;
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete('auth/delete')
-  delete(@Request() req) {
-    this.usersService.deleteUser(req.body.user_id).subscribe(() => console.log('Delete user request initiated!'));
-    return `User with user id ${req.body.user_id} has been successfully deleted!`
+  @Delete('auth/delete/:id')
+  delete(@Request() req, @Param() param) {
+    this.usersService.deleteUser(param.id).subscribe(() => console.log('Delete user request initiated!'));
+    return `User with user id ${param.id} has been successfully deleted!`
   }
  
   /*
