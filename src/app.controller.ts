@@ -6,7 +6,7 @@ import { AuthService } from './auth/auth.service';
 import { AppService } from './app.service';
 import { User } from './model/User';
 
-@Controller()
+@Controller('api')
 export class AppController {
   constructor(
     private appService: AppService,
