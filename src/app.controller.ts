@@ -7,6 +7,9 @@ import { AuthService } from './auth/auth.service';
 import { AppService } from './app.service';
 import { User } from './model/User';
 
+import { Role } from './enums/role.enum';
+import { Roles } from './roles.decorator';
+
 @Controller('api')
 export class AppController {
   constructor(
@@ -23,6 +26,7 @@ export class AppController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.SuperAdmin)
   @Post('auth/create')
   create(@Request() req) {
     //return req.body
@@ -31,6 +35,7 @@ export class AppController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.SuperAdmin, Role.Admin)
   @Put('auth/update/:id')
   update(@Request() req, @Param() param) {
     this.usersService.updateUser(param.id, req.body).subscribe(() => console.log('User update request initiated!'));
@@ -38,6 +43,7 @@ export class AppController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Roles(Role.SuperAdmin)
   @Delete('auth/delete/:id')
   delete(@Request() req, @Param() param) {
     this.usersService.deleteUser(param.id).subscribe(() => console.log('Delete user request initiated!'));
