@@ -22,6 +22,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
      * token validation, such as looking up the userId in a list of 
      * revoked tokens, enabling us to perform token revocation.
      */
-    return { userId: payload.sub, username: payload.username };
+    return { userId: payload.sub, username: payload.username, role: payload.role };
   }
 }
