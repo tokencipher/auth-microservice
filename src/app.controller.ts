@@ -1,6 +1,7 @@
 import { Controller, Get, Request, Param, Put, Delete, Post, UseGuards } from '@nestjs/common';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { RolesGuard } from './roles.guard';
 import { UsersService } from './users/users.service';
 import { AuthService } from './auth/auth.service';
 import { AppService } from './app.service';
@@ -21,7 +22,7 @@ export class AppController {
     return this.authService.login(req.user);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Post('auth/create')
   create(@Request() req) {
     //return req.body
@@ -29,7 +30,7 @@ export class AppController {
     return `${req.body.username} has successfully been created!`;
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Put('auth/update/:id')
   update(@Request() req, @Param() param) {
     this.usersService.updateUser(param.id, req.body).subscribe(() => console.log('User update request initiated!'));
