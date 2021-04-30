@@ -35,11 +35,11 @@ export class UsersService {
   */
 
   createUser(user: User): Observable<AxiosResponse> {
-    return this.httpService.post(`${this.usersAPI}/user`, {user});
+    return this.httpService.post(`${this.usersAPI}/user`, user);
   }  
 
   updateUser(userID: number, user: Partial<User>): Observable<AxiosResponse> {
-    return this.httpService.patch(`${this.usersAPI}/user/${userID}`, {user});
+    return this.httpService.patch(`${this.usersAPI}/user/${userID}`, user);
   }
 
   deleteUser(userID: number): Observable<AxiosResponse> {
