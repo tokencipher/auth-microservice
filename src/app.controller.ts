@@ -42,7 +42,7 @@ export class AppController {
     return `User with user id ${param.id} has been successfully updated!`;
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.SuperAdmin)
   @Delete('auth/delete/:id')
   delete(@Request() req, @Param() param) {
